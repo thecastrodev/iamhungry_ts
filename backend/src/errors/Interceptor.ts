@@ -1,4 +1,5 @@
 import { NextFunction, Request, Response } from "express";
+import { ZodError } from "zod";
 
 import { AppError } from "./AppError";
 
@@ -12,6 +13,13 @@ export function Interceptor(
     response.status(error.statusCode).json({
       status: "Error",
       message: error.message,
+    });
+  }
+
+  if (error instanceof ZodError) {
+    return response.status(400).json({
+      status: "Validation error",
+      message: error.issues,
     });
   }
 

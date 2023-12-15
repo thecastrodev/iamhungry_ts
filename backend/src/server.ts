@@ -1,5 +1,6 @@
 import express, { Express } from "express";
 import { Interceptor } from "./errors/Interceptor";
+import "express-async-errors";
 import dotenv from "dotenv";
 
 import { routes } from "./routes";
