@@ -1,6 +1,8 @@
 import { Request, Response } from "express";
+import Zod from "zod";
 
 import { prisma } from "../libs/prisma";
+import { AppError } from "../errors/AppError";
 
 export class UsersController {
   async index(_: Request, response: Response) {
@@ -10,6 +12,20 @@ export class UsersController {
   }
 
   async create(request: Request, response: Response) {
+    const bodySchema = Zod.object({
+      name: Zod.string(),
+      email: Zod.string().email(),
+      cpf: Zod.string().length(14),
+      phone: Zod.string().min(11),
+      cep: Zod.string().min(5),
+      state: Zod.string().min(2),
+      city: Zod.string().min(3),
+      district: Zod.string().min(3),
+      street: Zod.string().min(3),
+      number: Zod.string(),
+      complement: Zod.string().min(3),
+    }).strict();
+
     const {
       name,
       email,
@@ -22,7 +38,18 @@ export class UsersController {
       street,
       number,
       complement,
-    } = request.body;
+    } = bodySchema.parse(request.body);
+
+    const emailExists = await prisma.user.findUnique({
+      where: { email },
+    });
+    if (emailExists)
+      throw new AppError(`Conflit - Email already exists! `, 409);
+
+    const cpfExists = await prisma.userInformations.findFirst({
+      where: { cpf },
+    });
+    if (cpfExists) throw new AppError(`Conflit - CPF already exists! `, 409);
 
     const userId = await prisma.$transaction(async (tx) => {
       let txUser = await tx.user.create({
@@ -69,17 +96,29 @@ export class UsersController {
       where: { id },
     });
 
-    if (!user)
-      return response.status(400).json({ message: `User ${id} not found! ` });
+    if (!user) throw new AppError(`User ${id} not found! `, 404);
 
     return response.status(200).json(user);
   }
 
   async update(request: Request, response: Response) {
     const { id } = request.params;
+    const bodySchema = Zod.object({
+      name: Zod.string().nullish(),
+      email: Zod.string().email().nullish(),
+      cpf: Zod.string().length(14).nullish(),
+      phone: Zod.string().min(11).nullish(),
+      cep: Zod.string().min(5).nullish(),
+      state: Zod.string().min(2).nullish(),
+      city: Zod.string().min(3).nullish(),
+      district: Zod.string().min(3).nullish(),
+      street: Zod.string().min(3).nullish(),
+      number: Zod.string().nullish(),
+      complement: Zod.string().min(3).nullish(),
+    }).strict();
     const {
-      email,
       name,
+      email,
       cpf,
       phone,
       cep,
@@ -89,36 +128,41 @@ export class UsersController {
       street,
       number,
       complement,
-    } = request.body;
+    } = bodySchema.parse(request.body);
 
-    const user = await prisma.user.findUnique({
+    const userExists = await prisma.user.findUnique({
       where: { id },
     });
 
-    if (!user)
-      return response.status(400).json({ message: `User ${id} not found! ` });
+    if (!userExists) throw new AppError(`User ${id} not found! `, 404);
 
-    await prisma.user.update({
+    let data_email = {};
+    if (email) data_email = email;
+
+    let data_info = {};
+    if (name) data_info = { name };
+    if (cpf) data_info = { ...data_info, cpf };
+    if (phone) data_info = { ...data_info, phone };
+
+    let data_address = {};
+
+    if (cep) data_address = { cep };
+    if (state) data_address = { ...data_address, state };
+    if (city) data_address = { ...data_address, city };
+    if (district) data_address = { ...data_address, district };
+    if (street) data_address = { ...data_address, street };
+    if (number) data_address = { ...data_address, number };
+    if (complement) data_address = { ...data_address, complement };
+
+    const user = await prisma.user.update({
       where: { id },
       data: {
-        email,
+        email: data_email,
         information: {
-          update: {
-            name,
-            cpf,
-            phone,
-          },
+          update: data_info,
         },
         address: {
-          update: {
-            cep,
-            state,
-            city,
-            district,
-            street,
-            number,
-            complement,
-          },
+          update: data_address,
         },
       },
     });
@@ -128,6 +172,12 @@ export class UsersController {
 
   async delete(request: Request, response: Response) {
     const { id } = request.params;
+
+    const user = await prisma.user.findUnique({
+      where: { id },
+    });
+
+    if (!user) throw new AppError(`User ${id} not found! `, 404);
 
     await prisma.user.delete({
       where: { id },

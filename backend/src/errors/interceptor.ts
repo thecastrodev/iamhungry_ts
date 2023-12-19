@@ -3,7 +3,7 @@ import { ZodError } from "zod";
 
 import { AppError } from "./AppError";
 
-export function Interceptor(
+export function interceptor(
   error: Error,
   request: Request,
   response: Response,

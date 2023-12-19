@@ -1,5 +1,5 @@
 import express, { Express } from "express";
-import { Interceptor } from "./errors/Interceptor";
+import { interceptor } from "./errors/interceptor";
 import "express-async-errors";
 import dotenv from "dotenv";
 
@@ -13,7 +13,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(routes);
 
-app.use(Interceptor);
+app.use(interceptor);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);
