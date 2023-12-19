@@ -1,12 +1,14 @@
 import { PrismaClient } from "@prisma/client";
+import { hash } from "bcrypt";
 const prisma = new PrismaClient();
+
 async function main() {
   const correios = await prisma.user.upsert({
     where: { email: "cecddsbl@correios.com.br" },
     update: {},
     create: {
       email: "cecddsbl@correios.com.br",
-      pass_hash: "",
+      pass_hash: await hash("123456", 6),
       information: {
         create: {
           name: "Correios",

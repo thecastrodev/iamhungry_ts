@@ -16,6 +16,7 @@ model User {
   pass_hash  String
   information UserInformations?
   address UserAddress?
+  sales Sale[]
 
   created_at  DateTime @default(now())
 
@@ -54,6 +55,10 @@ model UserAddress {
 model Sale {
   id     String   @id @default(uuid())
   assignedAt  DateTime @default(now())
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  String @unique
+
   categories ProductsInSales[]
 
   @@map("sales")

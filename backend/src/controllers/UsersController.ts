@@ -1,20 +1,27 @@
 import { Request, Response } from "express";
 import Zod from "zod";
+import { hash } from "bcrypt";
 
 import { prisma } from "../libs/prisma";
 import { AppError } from "../errors/AppError";
+import { excludeFields } from "../utils/excludeFields";
 
 export class UsersController {
   async index(_: Request, response: Response) {
     const users = await prisma.user.findMany();
 
-    return response.status(200).json(users);
+    const usersWithoutPasshash = users.map((user) =>
+      excludeFields(user, ["pass_hash"])
+    );
+
+    return response.status(200).json(usersWithoutPasshash);
   }
 
   async create(request: Request, response: Response) {
     const bodySchema = Zod.object({
-      name: Zod.string(),
+      name: Zod.string().min(3),
       email: Zod.string().email(),
+      password: Zod.string().min(6),
       cpf: Zod.string().length(14),
       phone: Zod.string().min(11),
       cep: Zod.string().min(5),
@@ -29,6 +36,7 @@ export class UsersController {
     const {
       name,
       email,
+      password,
       cpf,
       phone,
       cep,
@@ -51,11 +59,11 @@ export class UsersController {
     });
     if (cpfExists) throw new AppError(`Conflit - CPF already exists! `, 409);
 
-    const userId = await prisma.$transaction(async (tx) => {
+    const user = await prisma.$transaction(async (tx) => {
       let txUser = await tx.user.create({
         data: {
           email,
-          pass_hash: "",
+          pass_hash: await hash(password, 6),
         },
       });
 
@@ -81,12 +89,12 @@ export class UsersController {
         },
       });
 
-      return txUser.id;
+      return txUser;
     });
 
-    return response
-      .status(200)
-      .json({ message: `User created - Id: ${userId}` });
+    const usersWithoutPasshash = excludeFields(user, ["pass_hash"]);
+
+    return response.status(200).json(usersWithoutPasshash);
   }
 
   async show(request: Request, response: Response) {
@@ -94,11 +102,17 @@ export class UsersController {
 
     const user = await prisma.user.findUnique({
       where: { id },
+      include: {
+        information: true,
+        address: true,
+      },
     });
 
     if (!user) throw new AppError(`User ${id} not found! `, 404);
 
-    return response.status(200).json(user);
+    const usersWithoutPasshash = excludeFields(user, ["pass_hash"]);
+
+    return response.status(200).json(usersWithoutPasshash);
   }
 
   async update(request: Request, response: Response) {
@@ -134,9 +148,9 @@ export class UsersController {
       where: { id },
     });
 
-    if (!userExists) throw new AppError(`User ${id} not found! `, 404);
+    if (!userExists) throw new AppError("User not found!", 404);
 
-    let data_email = {};
+    let data_email;
     if (email) data_email = email;
 
     let data_info = {};
@@ -167,7 +181,9 @@ export class UsersController {
       },
     });
 
-    return response.status(200).json(user);
+    const usersWithoutPasshash = excludeFields(user, ["pass_hash"]);
+
+    return response.status(200).json(usersWithoutPasshash);
   }
 
   async delete(request: Request, response: Response) {
@@ -177,7 +193,7 @@ export class UsersController {
       where: { id },
     });
 
-    if (!user) throw new AppError(`User ${id} not found! `, 404);
+    if (!user) throw new AppError("User not found!", 404);
 
     await prisma.user.delete({
       where: { id },
