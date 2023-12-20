@@ -1,7 +1,47 @@
 // src/components/RegisterForm.tsx
 import React from "react";
+import { useForm } from "react-hook-form";
+import {
+  TextInputMask,
+  celPhoneMask,
+  cpfMask,
+  customMask,
+} from "react-masked-text";
+
+interface FormData {
+  email: string;
+  password: string;
+
+  name: string;
+  phone: string;
+  cpf: string;
+
+  cep: string;
+  state: string;
+  city: string;
+  district: string;
+  street: string;
+  number: string;
+  complement: string;
+}
 
 const RegisterForm: React.FC = () => {
+  const { register, setValue, setFocus } = useForm<FormData>();
+
+  const checkCEP = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const cep = e.target.value.replace(/\D/g, "");
+    fetch(`https://viacep.com.br/ws/${cep}/json/`)
+      .then((res) => res.json())
+      .then((data) => {
+        setValue("cep", data.cep);
+        setValue("street", data.logradouro);
+        setValue("district", data.bairro);
+        setValue("city", data.localidade);
+        setValue("state", data.uf);
+        setFocus("number");
+      });
+  };
+
   return (
     <div className="max-w-md mx-auto mt-10 p-6 bg-gray-700 rounded-md shadow-md">
       <h2 className="text-2xl font-semibold mb-6 text-gray-100">Registro</h2>
@@ -16,6 +56,7 @@ const RegisterForm: React.FC = () => {
               Email
             </label>
             <input
+              placeholder="name@email.com"
               type="email"
               id="email"
               name="email"
@@ -30,6 +71,7 @@ const RegisterForm: React.FC = () => {
               Senha
             </label>
             <input
+              placeholder="password"
               type="password"
               id="password"
               name="password"
@@ -51,6 +93,7 @@ const RegisterForm: React.FC = () => {
             Nome
           </label>
           <input
+            placeholder="Joao da Silva"
             type="text"
             id="name"
             name="name"
@@ -67,8 +110,9 @@ const RegisterForm: React.FC = () => {
             >
               CPF
             </label>
-            <input
-              type="text"
+            <TextInputMask
+              mask={cpfMask()}
+              placeholder="999.888.777-14"
               id="cpf"
               name="cpf"
               className="mt-1 p-2 w-full border rounded-md"
@@ -82,8 +126,9 @@ const RegisterForm: React.FC = () => {
             >
               Telefone
             </label>
-            <input
-              type="text"
+            <TextInputMask
+              mask={celPhoneMask()}
+              placeholder="(88) 99999-9999"
               id="phone"
               name="phone"
               className="mt-1 p-2 w-full border rounded-md"
@@ -105,11 +150,15 @@ const RegisterForm: React.FC = () => {
             >
               CEP
             </label>
-            <input
+            <TextInputMask
               type="text"
+              {...register("cep")}
+              mask={customMask("99999-999")}
+              placeholder="62100-000"
               id="cep"
               name="cep"
               className="mt-1 p-2 w-full border rounded-md"
+              onBlur={checkCEP}
             />
           </div>
           <div className="mb-4">
@@ -121,6 +170,8 @@ const RegisterForm: React.FC = () => {
             </label>
             <input
               type="text"
+              placeholder="CE"
+              {...register("state")}
               id="state"
               name="state"
               className="mt-1 p-2 w-full border rounded-md"
@@ -139,6 +190,8 @@ const RegisterForm: React.FC = () => {
             </label>
             <input
               type="text"
+              placeholder="Sobral"
+              {...register("city")}
               id="city"
               name="city"
               className="mt-1 p-2 w-full border rounded-md"
@@ -153,6 +206,8 @@ const RegisterForm: React.FC = () => {
             </label>
             <input
               type="text"
+              placeholder="Centro"
+              {...register("district")}
               id="district"
               name="district"
               className="mt-1 p-2 w-full border rounded-md"
@@ -169,6 +224,8 @@ const RegisterForm: React.FC = () => {
           </label>
           <input
             type="text"
+            placeholder="Rua Joao Gomes"
+            {...register("street")}
             id="street"
             name="street"
             className="mt-1 p-2 w-full border rounded-md"
@@ -186,6 +243,8 @@ const RegisterForm: React.FC = () => {
             </label>
             <input
               type="text"
+              placeholder="123"
+              {...register("number")}
               id="number"
               name="number"
               className="mt-1 p-2 w-full border rounded-md"
@@ -199,6 +258,7 @@ const RegisterForm: React.FC = () => {
               Complemento
             </label>
             <input
+              placeholder="Lado Impar"
               type="text"
               id="complement"
               name="complement"
