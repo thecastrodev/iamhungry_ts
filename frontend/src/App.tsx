@@ -1,26 +1,20 @@
-import UXFoodsLogo from "./assets/UXFoods.png";
-import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginForm from "./components/LoginForm";
+import RegisterForm from "./components/RegisterForm";
+import Main from "./components/Main";
 
 function App() {
   return (
     <>
-      <div>
-        <a href="https://uxsoftware.com.br" target="_blank">
-          <img src={UXFoodsLogo} className="logo" alt="UXFoods logo" />
-        </a>
+      <div className="flex items-center justify-center min-h-screen bg-gray-500">
+        <Router>
+          <Routes>
+            <Route path="/login" element={<LoginForm />} />
+            <Route path="/register" element={<RegisterForm />} />
+            <Route path="/" element={<Main />} />
+          </Routes>
+        </Router>
       </div>
-      <main>
-        <h1>
-          UXFoods é uma empresa especializada em trazer felicidade por meio do
-          paladar!
-        </h1>
-      </main>
-      <footer>
-        Development by{" "}
-        <a href="https://linkedin.com/in/thecastrodev" target="_blank">
-          @thecastrodev
-        </a>
-      </footer>
     </>
   );
 }
