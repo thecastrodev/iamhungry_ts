@@ -29,7 +29,44 @@ async function main() {
       },
     },
   });
-  console.log({ correios });
+
+  const products = await prisma.product.createMany({
+    data: [
+      {
+        name: "Empada Doce de Leite",
+        price: 7.5,
+        amount: 8,
+      },
+      {
+        name: "Empada Chocolate",
+        price: 9.5,
+        amount: 10,
+      },
+    ],
+  });
+
+  const productTest = await prisma.product.create({
+    data: {
+      name: "Empada Leite Condensado",
+      price: 7.5,
+      amount: 7,
+    },
+  });
+
+  const sale = await prisma.sale.create({
+    data: {
+      user_id: correios.id,
+    },
+  });
+
+  const saleTest = await prisma.productsInSales.create({
+    data: {
+      product_id: productTest.id,
+      sale_id: sale.id,
+    },
+  });
+
+  console.log({ correios, products, productTest, sale, saleTest });
 }
 main()
   .then(async () => {

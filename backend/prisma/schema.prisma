@@ -29,8 +29,8 @@ model UserInformations {
   phone String
   cpf String @unique
 
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String @unique
+  user  User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id  String @unique
   
   @@map("user_informations")
 }
@@ -46,20 +46,20 @@ model UserAddress {
   number  String
   complement  String
 
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String @unique
+  user  User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id  String @unique
 
   @@map("user_adresses")
 }
 
 model Sale {
   id     String   @id @default(uuid())
-  assignedAt  DateTime @default(now())
+  assigned_at  DateTime @default(now())
 
-  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId  String @unique
+  user  User  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id  String @unique
 
-  categories ProductsInSales[]
+  products ProductsInSales[]
 
   @@map("sales")
 }
@@ -67,17 +67,19 @@ model Sale {
 model Product {
   id    String   @id @default(uuid())
   name  String
+  price Float
+  amount Int
   sales ProductsInSales[]
 
   @@map("products")
 }
 
 model ProductsInSales {
-  sale     Sale     @relation(fields: [saleId], references: [id])
-  saleId   String
-  product     Product @relation(fields: [productId], references: [id])
-  productId   String
+  sale     Sale     @relation(fields: [sale_id], references: [id], onDelete: Cascade)
+  sale_id   String
+  product     Product @relation(fields: [product_id], references: [id], onDelete: Cascade)
+  product_id   String
 
-  @@id([saleId, productId])
+  @@id([sale_id, product_id])
   @@map("products_in_sales")
 }

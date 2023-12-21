@@ -72,7 +72,7 @@ export class UsersController {
           name,
           cpf,
           phone,
-          userId: txUser.id,
+          user_id: txUser.id,
         },
       });
 
@@ -85,7 +85,7 @@ export class UsersController {
           street,
           number,
           complement,
-          userId: txUser.id,
+          user_id: txUser.id,
         },
       });
 
