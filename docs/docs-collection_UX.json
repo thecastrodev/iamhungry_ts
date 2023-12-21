@@ -1,0 +1,241 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "UX",
+    "dateExported": "2023-12-21T02:23:15.678Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "032f2ce0-642f-42e8-ad25-bf9d2403d239",
+            "name": "Users",
+            "containerId": "",
+            "created": "2023-12-15T12:27:26.027Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "04ba04bf-7197-4ff9-a8b9-91f25fc404a8",
+            "name": "Session",
+            "containerId": "",
+            "created": "2023-12-19T20:27:10.194Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "433eb002-6cbd-4255-9211-542755b788cf",
+            "name": "Products",
+            "containerId": "",
+            "created": "2023-12-21T02:06:31.494Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "c9907ba4-5908-4ec5-83a6-adb0fa0e8870",
+            "name": "Sales",
+            "containerId": "",
+            "created": "2023-12-21T02:06:41.058Z",
+            "sortNum": 40000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "55e927a9-fe48-4ec4-93e4-305d9f64acb8",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "032f2ce0-642f-42e8-ad25-bf9d2403d239",
+            "name": "Show",
+            "url": "http://localhost:3000/user/36798681-2829-4526-aa6d-af1a609d4dee",
+            "method": "GET",
+            "sortNum": 5000,
+            "created": "2023-12-15T12:26:51.555Z",
+            "modified": "2023-12-21T02:18:29.747Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDMxMjQ5NjIsImV4cCI6MTcwMzIxMTM2Miwic3ViIjoiMzY3OTg2ODEtMjgyOS00NTI2LWFhNmQtYWYxYTYwOWQ0ZGVlIn0.f0dkRg8kuE6bR-dHJNZ35bYcH7XZ-u7tf5zwbzQizZg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "f8da2178-64b0-4470-bda3-10cd4936d130",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "032f2ce0-642f-42e8-ad25-bf9d2403d239",
+            "name": "Index",
+            "url": "http://localhost:3000/user",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-12-15T12:24:48.566Z",
+            "modified": "2023-12-21T02:16:22.044Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDMxMjQ5NjIsImV4cCI6MTcwMzIxMTM2Miwic3ViIjoiMzY3OTg2ODEtMjgyOS00NTI2LWFhNmQtYWYxYTYwOWQ0ZGVlIn0.f0dkRg8kuE6bR-dHJNZ35bYcH7XZ-u7tf5zwbzQizZg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "facf5f84-0b8b-49c0-a7b4-96f7900a761e",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "c9907ba4-5908-4ec5-83a6-adb0fa0e8870",
+            "name": "Create Sale",
+            "url": "http://localhost:3000/sale/",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-12-21T02:07:20.532Z",
+            "modified": "2023-12-21T02:07:45.681Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "91af07bb-233d-4bcf-82b9-b64a897f023f",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "032f2ce0-642f-42e8-ad25-bf9d2403d239",
+            "name": "Create",
+            "url": "http://localhost:3000/user",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-12-15T12:27:05.689Z",
+            "modified": "2023-12-19T19:40:47.669Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Castro\",\n  \"email\": \"boss@thecastro.dev\",\n  \"password\": \"12345678\",\n  \"cpf\": \"887.777.666-14\",\n  \"phone\": \"(88) 99999-9998\",\n  \"cep\": \"62500-001\",\n  \"state\": \"CE\",\n  \"city\": \"Itapipoca\",\n  \"district\": \"Centro\",\n  \"street\": \"Rua Central\",\n  \"number\": \"11\",\n  \"complement\": \"Apto\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1526cbaf-5274-499b-b8f3-c8fd3dae1bc5",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "c9907ba4-5908-4ec5-83a6-adb0fa0e8870",
+            "name": "Index Sales",
+            "url": "http://localhost:3000/sale/",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-12-21T02:08:14.745Z",
+            "modified": "2023-12-21T02:16:57.650Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDMxMjQ5NjIsImV4cCI6MTcwMzIxMTM2Miwic3ViIjoiMzY3OTg2ODEtMjgyOS00NTI2LWFhNmQtYWYxYTYwOWQ0ZGVlIn0.f0dkRg8kuE6bR-dHJNZ35bYcH7XZ-u7tf5zwbzQizZg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "073b1082-f0ac-4ad4-8e09-dc80f507fb98",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "032f2ce0-642f-42e8-ad25-bf9d2403d239",
+            "name": "Update",
+            "url": "http://localhost:3000/user/428059fe-ff59-484a-8007-68a50ee1b052",
+            "method": "PUT",
+            "sortNum": 30000,
+            "created": "2023-12-15T12:27:12.246Z",
+            "modified": "2023-12-21T02:16:28.690Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Eduardo Castro\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDMxMjQ5NjIsImV4cCI6MTcwMzIxMTM2Miwic3ViIjoiMzY3OTg2ODEtMjgyOS00NTI2LWFhNmQtYWYxYTYwOWQ0ZGVlIn0.f0dkRg8kuE6bR-dHJNZ35bYcH7XZ-u7tf5zwbzQizZg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "14a39646-ea87-4a9f-9a78-1f6f7ad4043c",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "032f2ce0-642f-42e8-ad25-bf9d2403d239",
+            "name": "Delete",
+            "url": "http://localhost:3000/user/428059fe-ff59-484a-8007-68a50ee1b052",
+            "method": "DELETE",
+            "sortNum": 40000,
+            "created": "2023-12-15T12:27:16.688Z",
+            "modified": "2023-12-21T02:16:34.196Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDMxMjQ5NjIsImV4cCI6MTcwMzIxMTM2Miwic3ViIjoiMzY3OTg2ODEtMjgyOS00NTI2LWFhNmQtYWYxYTYwOWQ0ZGVlIn0.f0dkRg8kuE6bR-dHJNZ35bYcH7XZ-u7tf5zwbzQizZg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "951b42ce-3841-4571-ac2e-5a5117048c39",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "04ba04bf-7197-4ff9-a8b9-91f25fc404a8",
+            "name": "Connect",
+            "url": "http://localhost:3000/session/",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-12-19T20:27:19.778Z",
+            "modified": "2023-12-19T21:22:44.321Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"cecddsbl@correios.com.br\",\n  \"password\": \"123456\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "2c1d1251-bbfb-405c-b8c1-f35ab605e1bc",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "433eb002-6cbd-4255-9211-542755b788cf",
+            "name": "Index Product",
+            "url": "http://localhost:3000/product/",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-12-21T02:06:55.177Z",
+            "modified": "2023-12-21T02:07:03.679Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a9e402a1-0e3c-44de-b9c3-76230aa0d6ae",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "433eb002-6cbd-4255-9211-542755b788cf",
+            "name": "Show Product Id",
+            "url": "http://localhost:3000/product/c076c8b4-8c54-4910-8f56-8acafd5bb767",
+            "method": "GET",
+            "sortNum": 65000,
+            "created": "2023-12-21T02:08:51.764Z",
+            "modified": "2023-12-21T02:14:48.919Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "1cf39241-ba58-40bf-9aff-10a32b7ac933",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "433eb002-6cbd-4255-9211-542755b788cf",
+            "name": "List Products By Name",
+            "url": "http://localhost:3000/product/name/Empada Doce de Leite",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-12-21T02:08:50.056Z",
+            "modified": "2023-12-21T02:14:59.198Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "94a4cc77-24f9-48d1-b081-c670cdd68823",
+            "colId": "61aa2933-837d-4021-8a99-d2f11a1fc733",
+            "containerId": "433eb002-6cbd-4255-9211-542755b788cf",
+            "name": "Create Product",
+            "url": "http://localhost:3000/product/",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-12-21T02:08:54.218Z",
+            "modified": "2023-12-21T02:09:49.568Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        }
+    ]
+}
