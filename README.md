@@ -1,46 +1,101 @@
-# Menu - UX_Foods
+<h1 align="center">
+  🍕 I am Hungry
+</h1>
 
-Desafio Cardápio Digital para a empresa UX Software.
+<p align="center">
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-documentacao">Documentação Oficial</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-sobre-o-projeto">Projeto</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-instalação">Instalação</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-uso">Uso</a>&nbsp;&nbsp;&nbsp;
+</p>
 
-Stacks:
+<br>
 
-- TypeScript
-- Node.js
-- ReactJS
-- Prisma ORM
+## 🌐 Tecnologias
 
-Algumas Features:
+O projeto foi desenvolvido com as seguintes tecnologias:
+
+- [Node.js](https://nodejs.org/pt-br/)
+- [Express](https://expressjs.com/pt-br/)
+- [Prisma ORM](https://www.prisma.io/)
+
+## 🔧 Funcionalidades
+
 [x] CRUD Usuarios
 [x] Autenticação
-[x] Validação de Entrada
-[x] Mascaras
+[x] Validação de Entrada de Dados
+[x] Mascaras em Inputs
 
-![Rotas da Aplicação](./docs/img_all_routes.png "Users / Session / Products / Sales")
+## 💻 Sobre o Projeto
 
-### Users
+Um gerenciador de tarefas simples para organizar o dia.
 
-Users Index
-![Users Index](./docs/img_user_index.png "Users")
-Users Show
-![Users Show](./docs/img_user_show.png "Users")
-Users Show Error
-![Users Show Error](./docs/img_user_show_404.png "Users")
+## 📦 Instalação
 
-### Session
+Para clonar o projeto, com o [Git](https://git-scm.com/) já instalado no seu computador, execute o comando abaixo:
 
-Create Session
-![Create Session](./docs/img_session_connect.png "Session")
+```bash
+git clone https://github.com/thecastrodev/syslibrary_ts.git
+```
 
-### Products
+Em seguida, abra seu editor de código na pasta do seu projeto.
 
-Products Index
-![Products Index](./docs/img_prod_index.png "Products")
-Products List Name
-![Products List Name](./docs/img_prod_list_name.png "Products")
-Products Show By Id
-![Products Show By Id](./docs/img_prod_show_id.png "Products")
+Para instalar as dependências execute o comando abaixo na pasta do projeto:
 
-### Sales
+```bash
+npm install
+```
 
-Sales Index
-![Sales Index](./docs/img_sales_index.png "Sales")
+## 🔨 Uso
+
+A primeira coisa a ser feita é configurar o Banco de Dados com o Prisma. Rode o seguinte comando:
+```bash
+npx prisma migrate dev
+```
+
+Para visualizar as tabelas do banco de dados, execute o comando abaixo:
+```bash
+npx prisma studio
+```
+
+Agora, para rodar o projeto basta executar o comando abaixo com o terminar aberto na pasta do seu projeto:
+```bash
+npm run dev
+```
+
+Com o projeto rodando, agora você pode acessar a seguintes rotas pelo seu navegador:
+```bash
+http://localhost:3333/
+```
+
+Usando o [Insomnia](https://insomnia.rest/download), você poderá acessar as seguintes rotas de usuários:
+```bash
+GET http://localhost:3333/user/
+GET http://localhost:3333/user/id-do-usuario
+
+POST http://localhost:3333/user/
+  body (não copie a palavra "body", só o objeto abaixo):
+  {
+    "name": "Castro",
+    "email": "castro@email.com",
+    "password": "password123",
+    "cpf": "000.111.222-33",
+    "phone": "88999999999",
+    "cep": "00000-000",
+    "state": "CE",
+    "city": "Sobral",
+    "district": "Centro",
+    "street": "Rua Tal",
+    "number": "1234",
+    "complement": "Apto",
+  }
+```
+
+<br/>
+<br/>
+<h3 align="center">
+Desenvolvido por <a href="https://www.eduardocastro.dev/" target="_blank">@thecastrodev</a>
+<br/>
+<br/>
+</h3>
